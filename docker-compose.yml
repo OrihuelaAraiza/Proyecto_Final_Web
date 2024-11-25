@@ -8,9 +8,6 @@ services:
     environment:
       - PORT=5000
       - NODE_ENV=dev
-    volumes:
-      - ./backend:/usr/src/app
-      - /usr/src/app/node_modules
     restart: unless-stopped
 
   frontend:

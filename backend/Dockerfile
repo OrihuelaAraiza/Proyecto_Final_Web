@@ -1,23 +1,26 @@
-# Use an official Node.js runtime as the base image
+# Use Node.js 18 as the base image
 FROM node:18
 
-# Set the working directory inside the container
+# Set the working directory
 WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json
+# Copy the package.json and package-lock.json
 COPY package*.json ./
 
-# Install backend dependencies
+# Install dependencies
 RUN npm install
 
-# Copy the rest of the backend code
+# Install bcrypt dependencies for building native modules (if bcrypt is still required)
+RUN apt-get update && apt-get install -y python3 build-essential
+
+# Copy the rest of the application code
 COPY . .
 
-# Expose the backend port
+# Generate Prisma Client
+RUN npx prisma generate
+
+# Expose the application port
 EXPOSE 5000
 
-# Define environment variable for production
-ENV NODE_ENV=production
-
-# Start the backend server
+# Start the application
 CMD ["npm", "start"]
