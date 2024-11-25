@@ -1,7 +1,7 @@
-# Stage 1: Build the React app
-FROM node:18 AS build
+# Use Node.js 18 as the base image
+FROM node:18
 
-# Set working directory
+# Set the working directory
 WORKDIR /app
 
 # Copy package.json and package-lock.json
@@ -13,17 +13,8 @@ RUN npm install
 # Copy the rest of the frontend code
 COPY . .
 
-# Build the frontend
-RUN npm run build
+# Expose the Vite dev server port
+EXPOSE 5173
 
-# Stage 2: Serve the React app using Nginx
-FROM nginx:alpine
-
-# Copy the build output to Nginx's html directory
-COPY --from=build /app/dist /usr/share/nginx/html
-
-# Expose port 80
-EXPOSE 80
-
-# Start Nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Start the Vite development server
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
