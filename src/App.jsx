@@ -5,7 +5,7 @@ import OverviewPage from "./pages/OverviewPage";
 import ProductsPage from "./pages/ProductsPage";
 import UsersPage from "./pages/UsersPage";
 import SalesPage from "./pages/SalesPage";
-import OrdersPage from "./pages/OrdersPage";
+import ProjectsPage from "./pages/ProjectsPage.jsx";
 import AnalyticsPage from "./pages/AnalyticsPage";
 import SettingsPage from "./pages/SettingsPage";
 import LoginPage from "./pages/LoginPage"; // Import the LoginPage
@@ -78,7 +78,7 @@ function App() {
                     path="/orders"
                     element={
                         <PrivateRoute>
-                            <OrdersPage/>
+                            <ProjectsPage/>
                         </PrivateRoute>
                     }
                 />
